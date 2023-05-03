@@ -75,3 +75,38 @@ Lúc <<[Dấu thời gian]>>  có đơn hàng mới <<[IDDH]>> Thêm bới <<[Ng
 [_THISROW_BEFORE].[Tình Trạng]<>[_THISROW_AFTER].[Tình Trạng]
 -- 8.3. 
 sum(select([Chi tiết đơn hàng][Thành tiền],true))
+-- 9. #Học_AppSheet/ #Automation/ Đánh số thứ tự cho bảng ở bản in PDF
+<<Start: [Chi tiết đơn hàng:]>><<COUNT(SPLIT(LEFT(CONCATENATE([Chi tiết đơn hàng:][_ROWNUMBER]),FIND(TEXT([_ROWNUMBER]),CONCATENATE([Chi tiết đơn hàng:][_ROWNUMBER]))+LEN(TEXT([_ROWNUMBER]))-1),” , “))>>
+-- ooo
+https://chat.googleapis.com/v1/spaces/AAAAiwtjklc/messages?key=AIzaSyDdI0hCZtE6vySjMm-WEfRq3CPzqKqqsHI&token=b7JGh9WuuQMbnUqpUz72nCJViTB4HcC-vV5LY1fEjNk%3D
+-- 14.1#Học_AppSheet/ #Automation/ Chatbot gửi thông báo từ AppSheet đến Telegram
+https://api.telegram.org/bot6202026913:AAF25_Maa_EWvsIHeRsXtY_1JdJ5dQOhlPU/sendMessage?chat_id=-995368456&text=jjjjj
+-- 14.2#Học_AppSheet/ #Automation/ Chatbot gửi thông báo từ AppSheet đến Telegram bằng json
+https://api.telegram.org/bot6202026913:AAF25_Maa_EWvsIHeRsXtY_1JdJ5dQOhlPU/sendMessage?chat_id=-995368456&json=
+{"text":
+"Thông báo vừa có một đơn hàng mới /n
+Số thứ tự dòng :<<[_rownumber]>>\n
+Cột id: <<[IDDH]>>\n
+Cột tên:<<[Khách hàng]>>/n
+"}
+
+{"text":
+"Thông báo vừa chỉnh sửa một đơn hàng /n
+-Chỉnh sửa trên dòng : \n
++Số thứ tự dòng :<<[_rownumber]>> \n
++Cột id: <<[IDDH]>> \n
+-Nội dung chỉnh sửa:\n
+<<if([_thisrow_before].[Khách hàng]=[_thisrow_after].[Khách hàng],"","-Cột bị thay đổi là cột Khách hàng, Giá trị trước khi bị thay đổi là :"&[_thisrow_before].[Khách hàng]&";Giá trị sau khi thay đổi là:"&[_thisrow_after].[Khách hàng]&"\n")>>
+"}
+-- 15.#Học_AppSheet/ #Automation/ Định dạng thông báo từ AppSheet đến Telegram với HTML
+https://api.telegram.org/bot6202026913:AAF25_Maa_EWvsIHeRsXtY_1JdJ5dQOhlPU/sendMessage?chat_id=-995368456&parse_mode=HTML&json=
+{"text":
+"
+<b>Báo cáo</b> /n
+<i>Thời gian: :<<now()>> </i>\n
+<u>Người gửi: <<useremail()>></u>\n
+<a href='<<[Tên file]>>'>Tài liệu dính kèm</a>/n
+"}
+
+
+
